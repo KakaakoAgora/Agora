@@ -31,9 +31,9 @@ $(function() {
   };
 
   function sendPoint(_x, _y, _magnitude) {
-    var x = parseInt(_x);
-    var y = parseInt(_y);
-    var mag = parseFloat(_magnitude);
+    var x = Math.max(0, Math.min(80, parseInt(_x)));
+    var y = Math.max(0, Math.min(40, parseInt(_y)));
+    var mag = Math.max(0.0, Math.min(100.0, parseFloat(_magnitude)));
     var markPointMsg = edn.stringify({
                         'msg': 'mark-point',
                         'type': edn.keyword('update'),

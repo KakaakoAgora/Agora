@@ -1,14 +1,12 @@
-// (def ws-url "ws://localhost:3000/agora-socket")
-// (def ws (new js/WebSocket ws-url))
 var wsUri = "ws://localhost:3000/agora-socket";
 
 // Let us open a web socket
 var ws = new WebSocket(wsUri);
-var lastMsg;
 
 ws.onopen = function()
 {
   // Web Socket is connected, send data using send()
+  console.log("Connection open...");
   var pollingOn = {'msg': 'start polling', 
                    'type': edn.keyword('poll'), 
                    'name': 'generic js module'}

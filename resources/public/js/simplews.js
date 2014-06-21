@@ -1,8 +1,10 @@
-$(function() {
-  var wsUri = "ws://localhost:3000/agora-socket";
+var agoraWsUri = "ws://localhost:3000/agora-socket";
+var agoraCols = 80;
+var agoraRows = 40;
 
+$(function() {
   // Let us open a web socket
-  var ws = new WebSocket(wsUri);
+  var ws = new WebSocket(agoraWsUri);
 
   ws.onopen = function()
   {
@@ -31,8 +33,8 @@ $(function() {
   };
 
   function sendPoint(_x, _y, _magnitude) {
-    var x = Math.max(0, Math.min(80, parseInt(_x)));
-    var y = Math.max(0, Math.min(40, parseInt(_y)));
+    var x = Math.max(0, Math.min(agoraCols-1, parseInt(_x)));
+    var y = Math.max(0, Math.min(agoraRows-1, parseInt(_y)));
     var mag = Math.max(0.0, Math.min(100.0, parseFloat(_magnitude)));
     var markPointMsg = edn.stringify({
                         'msg': 'mark-point',

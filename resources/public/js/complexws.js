@@ -51,9 +51,12 @@ function setupWebSocket(wsUri) {
 };
 
 function sendPoint(ws, _x, _y, _magnitude) {
-  var x = Math.max(0, Math.min(agoraCols-1, parseInt(_x)));
-  var y = Math.max(0, Math.min(agoraRows-1, parseInt(_y)));
-  var mag = Math.max(0.0, Math.min(100.0, parseFloat(_magnitude)));
+  var x = _.isEmpty(_x) ? 0 : parseInt(_x);
+  var y = _.isEmpty(_y) ? 0 : parseInt(_y);
+  var mag = _.isEmpty(_magnitude) ? 0 : parseFloat(_magnitude);
+  x = Math.max(0, Math.min(agoraCols-1, x));
+  y = Math.max(0, Math.min(agoraRows-1, y));
+  mag = Math.max(0.0, Math.min(100.0, mag));
   var markPointMsg = edn.stringify({
                       'msg': 'mark-point',
                       'type': edn.keyword('update'),

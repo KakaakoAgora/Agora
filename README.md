@@ -57,6 +57,13 @@ java -jar target/agora-0.1.0-SNAPSHOT-standalone.jar
 ````
 
 ## Datomic
+
+#### Quickstart
 Use Datomic Free and start a server on localhost:4334.
 
-
+#### Step by Step
+* Download Datomic Free from Datomic.com
+* Unzip the package wherever you want
+* `cd` into the directory you just unzipped
+* Run `./bin/transactor config/samples/free-transactor-template.properties`
+* You should see a message saying that Datomic is listening on port 4334

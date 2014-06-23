@@ -37,5 +37,6 @@
                                    :source-map "resources/public/js/prod/agora.js.map"}
                         :jar true}]}
   :main agora.server
-  :ring {:handler agora.server/app})
+  :ring {:handler agora.server/app}
+ :jvm-opts ["-Xmx1g" "-Xms1g"])
 

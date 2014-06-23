@@ -1,4 +1,4 @@
-var agoraWsUri = "ws://192.81.3.34:3000/agora-socket";
+var agoraWsUri = "ws://localhost:3000/agora-socket";
 var agoraCols = 80;
 var agoraRows = 40;
 

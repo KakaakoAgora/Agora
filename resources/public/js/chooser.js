@@ -1,4 +1,4 @@
-var agoraWsUri = "ws://localhost:3000/agora-socket";
+var theWebSocket;
 var agoraCols = 80;
 var agoraRows = 40;
 
@@ -19,9 +19,13 @@ function handleAgoraMsg(data) {
   }
 }
 
-function setupWebSocket(wsUri) {
-  // Let us open a web socket
-  var ws = new WebSocket(wsUri);
+function setupWebSocket() {
+  if (!_.isUndefined(theWebSocket)) return;
+
+  // Open a web socket
+  var uri = 'ws://' + $('#socketUri').val();
+  console.log('web socket connecting... '+ uri);
+  var ws = new WebSocket(uri);
 
   ws.onopen = function()
   {
@@ -34,6 +38,10 @@ function setupWebSocket(wsUri) {
     ws.send(msg);
     console.log("message sent:");
     console.log(msg);
+
+    $('#connectSocketButton').prop('disabled', true);
+    $('#socketUri').prop('disabled', true);
+    $('#disconnectSocketButton').prop('disabled', false);
   };
 
   ws.onmessage = function (evt) 
@@ -45,6 +53,10 @@ function setupWebSocket(wsUri) {
   { 
     // websocket is closed.
     console.log("Connection is closed..."); 
+
+    $('#connectSocketButton').prop('disabled', false);
+    $('#socketUri').prop('disabled', false);
+    $('#disconnectSocketButton').prop('disabled', true);
   };
 
   return ws;
@@ -70,7 +82,15 @@ function sendPoint(ws, _x, _y, _magnitude) {
 };
 
 $(function() {
-  var ws = setupWebSocket(agoraWsUri);
+  $( "#connectSocketButton" ).click(function() {
+    theWebSocket = setupWebSocket();
+  });
+
+  $( "#disconnectSocketButton" ).click(function() {
+    if (!_.isUndefined(theWebSocket)) {
+      theWebSocket.close();
+    }
+  });
 
   $( "#markPointButton" ).click(function() {
     var x = $('#xVal').val();
